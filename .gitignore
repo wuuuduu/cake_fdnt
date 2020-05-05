@@ -1,0 +1,13 @@
+/.idea/
+*.sqlite3
+*.db
+__pycache__
+/static/
+*.pyc
+/venv/
+/logs/
+/media/
+celerybeat-schedule
+.env
+.coverage
+htmlcov
