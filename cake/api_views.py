@@ -27,7 +27,7 @@ class CakeCreateListViewSet(mixins.ListModelMixin,
             positions = Position.objects.select_for_update().filter(cake__isnull=True).order_by('position')
             positions__count = positions.count()
 
-            if positions__count < 0:
+            if positions__count > 0:
                 # we could use .order_by('?'), but query may be expensive and slow
                 random_position = random.choice(positions.values_list('position', flat=True))
                 position = positions.get(position=random_position)
