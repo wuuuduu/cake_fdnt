@@ -2,18 +2,25 @@ from captcha.fields import ReCaptchaField
 from django.utils.html import strip_tags
 from rest_framework import serializers
 
-from cake.models import Cake
+from cake.models import Cake, Position
 
 re_captcha_field = ReCaptchaField()
 
 
+class PositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Position
+        exclude = ('id', 'cake')
+
+
 class CakeSerializer(serializers.ModelSerializer):
     captcha = serializers.CharField(required=True, write_only=True)
+    position = PositionSerializer(read_only=True)
 
     class Meta:
         model = Cake
-        fields = ('id', 'name', 'text', 'captcha')
-        read_only_fields = ('id',)
+        fields = ('id', 'name', 'text', 'captcha', 'position')
+        read_only_fields = ('id', 'position')
 
     def validate_name(self, value):
         return strip_tags(value)
