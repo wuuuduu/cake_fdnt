@@ -50,3 +50,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:4200',
     'http://localhost:4200',
 ]
+
+try:
+    from cake_fdnt.settings.local_settings import *
+except ImportError:
+    pass

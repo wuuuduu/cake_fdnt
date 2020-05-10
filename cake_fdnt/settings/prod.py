@@ -28,6 +28,6 @@ ALLOWED_HOSTS = [
 RAVEN_CONFIG['environment'] = 'prod'
 
 CORS_ORIGIN_WHITELIST = [
-    'https://tort.fdntkrakow.pl',
-    'https://www.tort.fdntkrakow.pl'
+    'https://tort.fdnt.pl',
+    'https://www.tort.fdnt.pl'
 ]
