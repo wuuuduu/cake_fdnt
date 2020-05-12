@@ -29,5 +29,7 @@ RAVEN_CONFIG['environment'] = 'prod'
 
 CORS_ORIGIN_WHITELIST = [
     'https://tort.fdnt.pl',
-    'https://www.tort.fdnt.pl'
+    'https://www.tort.fdnt.pl',
+    'https://tort.dzielo.pl',
+    'https://www.tort.dzielo.pl',
 ]
