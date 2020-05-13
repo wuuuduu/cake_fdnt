@@ -33,3 +33,10 @@ CORS_ORIGIN_WHITELIST = [
     'https://tort.dzielo.pl',
     'https://www.tort.dzielo.pl',
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}

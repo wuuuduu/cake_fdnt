@@ -2,10 +2,13 @@ import logging
 import random
 from time import sleep
 
+from django.core.cache.backends.locmem import LocMemCache
 from django.db import transaction
 from django.db.models import Max
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework import viewsets, mixins
-
+from django.core.cache import cache
 from cake.models import Cake, Position
 from cake.serializers import CakeSerializer
 
@@ -19,6 +22,10 @@ class CakeCreateListViewSet(mixins.ListModelMixin,
     permission_classes = []
     serializer_class = CakeSerializer
     queryset = Cake.objects.all().select_related('position')
+
+    @method_decorator(cache_page(60 * 60 * 2))
+    def list(self, request, *args, **kwargs):
+        return super(CakeCreateListViewSet, self).list(request, *args, **kwargs)
 
     def perform_create(self, serializer: CakeSerializer):
         with transaction.atomic():
@@ -39,3 +46,4 @@ class CakeCreateListViewSet(mixins.ListModelMixin,
                     cake=instance
                     # we can't use positions(QuerySet), because it's filtered
                 )
+        cache.clear()
