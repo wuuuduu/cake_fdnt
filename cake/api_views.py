@@ -1,8 +1,6 @@
 import logging
 import random
-from time import sleep
 
-from django.core.cache.backends.locmem import LocMemCache
 from django.db import transaction
 from django.db.models import Max
 from django.utils.decorators import method_decorator
@@ -23,7 +21,7 @@ class CakeCreateListViewSet(mixins.ListModelMixin,
     serializer_class = CakeSerializer
     queryset = Cake.objects.all().select_related('position')
 
-    @method_decorator(cache_page(60 * 60 * 2))
+    @method_decorator(cache_page(60 * 5))
     def list(self, request, *args, **kwargs):
         return super(CakeCreateListViewSet, self).list(request, *args, **kwargs)
 
