@@ -15,12 +15,14 @@ class PositionInlineFormset(BaseInlineFormSet):
 class PositionInline(admin.TabularInline):
     model = Position
     fields = ('position',)
+    readonly_fields = ('position',)
     formset = PositionInlineFormset
 
 
 @admin.register(Cake)
 class CakeAdmin(admin.ModelAdmin):
     search_fields = ('name', 'text')
+    list_display = ('id', 'name', 'text')
     inlines = [PositionInline]
 
 
