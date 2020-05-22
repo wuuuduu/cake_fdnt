@@ -1,6 +1,7 @@
 from captcha.fields import ReCaptchaField
 from django.utils.html import strip_tags
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from cake.models import Cake, Position
 
@@ -31,6 +32,10 @@ class CakeSerializer(serializers.ModelSerializer):
     def validate_captcha(self, value):
         re_captcha_field.validate(value)
         return value
+
+    def validate(self, attrs):
+        raise ValidationError('Adding new positions to cake has been closed.')
+        # return attrs
 
     def create(self, validated_data):
         del validated_data['captcha']
